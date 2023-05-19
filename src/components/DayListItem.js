@@ -9,7 +9,17 @@ export default function DayListItem({ name, spots, selected, setDay }) {
     "day-list__item--full": spots === 0,
   });
 
-  const spotsText = spots === 0 ? "no spots remaining" : `${spots} spots remaining`;
+  const formatSpots = (spots) => {
+    if (spots === 0) {
+      return "no spots remaining";
+    } else if (spots === 1) {
+      return "1 spot remaining";
+    } else {
+      return `${spots} spots remaining`;
+    }
+  };
+
+  const spotsText = formatSpots(spots);
 
   const handleClick = () => {
     setDay(name);
