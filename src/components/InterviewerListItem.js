@@ -2,13 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import 'components/InterviewerListItem.scss';
 
-export default function InterviewerListItem({ id, name, avatar, selected, setInterviewer }) {
+export default function InterviewerListItem({ name, avatar, selected, setInterviewer }) {
   const interviewerClass = classNames('interviewers__item', {
     'interviewers__item--selected': selected,
   });
 
   const handleClick = () => {
-    setInterviewer(id);
+    setInterviewer();
   };
 
   return (
