@@ -1,7 +1,6 @@
 import React from 'react';
 import InterviewerListItem from './InterviewerListItem';
 import 'components/InterviewerList.scss';
-// import { Value } from 'sass';
 
 export default function InterviewerList({ interviewers, setInterviewer, interviewer ,value ,onChange }) {
   const interviewerItems = interviewers.map((interviewerItem) => (
