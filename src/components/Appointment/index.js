@@ -5,13 +5,12 @@ import Show from './Show';
 import "./styles.scss";
 import useVisualMode from 'hooks/useVisualMode';
 import Form from './Form';
-
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREAT = "CREAT";
 
 export default function Appointment(props) {
-  const { time, interview } = props;
+  const { time, interview, interviewers } = props;
   const interviewer = { id: 1, name: "John Doe", avatar: "avatar.jpg" }; // Replace with your actual interviewer object
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
@@ -34,7 +33,7 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty  onAdd={handleAdd}/>}
       {mode === CREAT && (
         <Form   
-        interviewers={[]}
+        interviewers={interviewers}
         onCancel= {handleCancel}
         
         />

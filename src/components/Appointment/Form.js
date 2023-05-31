@@ -26,6 +26,8 @@ export default function Form(props) {
     // console.log(student, interviewer);
   };
 
+  // const interviewers = getInterviewersForDay(props.interviewers, props.day);
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
