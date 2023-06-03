@@ -10,7 +10,8 @@ const SHOW = "SHOW";
 const CREAT = "CREAT";
 
 export default function Appointment(props) {
-  const { time, interview, interviewers } = props;
+  const { time, interview, interviewers, bookInterview, id } = props;
+  // console.log(bookInterview)
   const interviewer = { id: 1, name: "John Doe", avatar: "avatar.jpg" }; // Replace with your actual interviewer object
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
@@ -19,12 +20,23 @@ export default function Appointment(props) {
     transition(CREAT);
   }
 
+
   const handleCancel = () => {
     back();
   }
+ 
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    bookInterview( id, interview);
+    transition(SHOW);
+  }
+  
 
 
-  return (
+  return ( 
     <article className="appointment">
       <Header time={time} />
       {mode === SHOW && (
@@ -35,6 +47,7 @@ export default function Appointment(props) {
         <Form   
         interviewers={interviewers}
         onCancel= {handleCancel}
+        onSave={save}
         
         />
       )}
