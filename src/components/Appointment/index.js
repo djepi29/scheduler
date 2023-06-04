@@ -11,8 +11,8 @@ const CREAT = "CREAT";
 
 export default function Appointment(props) {
   const { time, interview, interviewers, bookInterview, id } = props;
-  // console.log(bookInterview)
-  const interviewer = { id: 1, name: "John Doe", avatar: "avatar.jpg" }; // Replace with your actual interviewer object
+  // console.log(interview)
+  // const interviewer = { id: 1, name: "John Doe", avatar: "avatar.jpg" }; // Replace with your actual interviewer object
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -40,7 +40,7 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={time} />
       {mode === SHOW && (
-        <Show student={interview.student} interviewer={interviewer.name} /> 
+        <Show student={interview.student} interviewer={interview.interviewer.name} /> 
       )}
       {mode === EMPTY && <Empty  onAdd={handleAdd}/>}
       {mode === CREAT && (
