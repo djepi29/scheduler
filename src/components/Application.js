@@ -38,25 +38,28 @@ export default function Application(props) {
   };
 
   // Function to book an interview
-const bookInterview = (id, interview) => {
-  // console.log(id, interview);
-
-  const appointment = {
-    ...state.appointments[id],
-    interview: { ...interview }
-  };
-  const appointments = {
-    ...state.appointments,
-    [id]: appointment
-  };
-
-  setState((prev) => ({
-    ...prev,
-    appointments: {
-      ...appointments
+  const bookInterview = async (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+  
+    // Make the PUT request to update the appointment data
+    try {
+      const response = await axios.put(`/api/appointments/${id}`, { interview });
+      setState(prev => ({
+        ...prev,
+        appointments
+      }));
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.log(error);
     }
-  }));
-};
+  };
 
   // Selectors 
   const dailyAppointments = getAppointmentsForDay(state, day);// Get appointments for the selected day
