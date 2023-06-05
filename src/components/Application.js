@@ -3,25 +3,29 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "../helpers/selectors";
 
 export default function Application(props) {
-  // State object 
+  // State object
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
   });
-  // Shorthand state reference 
+  // Shorthand state reference
   const { day, days, appointments, interviewers } = state;
 
-  // Fetching data 
+  // Fetching data
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
       axios.get("/api/appointments"),
-      axios.get("/api/interviewers")
+      axios.get("/api/interviewers"),
     ]).then(([daysResponse, appointmentsResponse, interviewersResponse]) => {
       setState((prev) => ({
         ...prev,
@@ -34,53 +38,90 @@ export default function Application(props) {
 
   // Function to set the selected day
   const setDay = (day) => {
-    setState((prev) => ({ ...prev, day })); // day => day: day 
+    setState((prev) => ({ ...prev, day })); // day => day: day
   };
 
   // Function to book an interview
   const bookInterview = async (id, interview) => {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: { ...interview },
     };
     const appointments = {
       ...state.appointments,
-      [id]: appointment
+      [id]: appointment,
     };
-  
+
     // Make the PUT request to update the appointment data
     try {
-      const response = await axios.put(`/api/appointments/${id}`, { interview });
-      setState(prev => ({
+      const response = await axios.put(`/api/appointments/${id}`, {
+        interview,
+      });
+      setState((prev) => ({
         ...prev,
-        appointments
-      }));
+        appointments,
+      }))
+      return response
     } catch (error) {
       // Handle any errors that occur during the request
       console.log(error);
     }
+
   };
 
-  // Selectors 
-  const dailyAppointments = getAppointmentsForDay(state, day);// Get appointments for the selected day
+  const cancelInterview = async (id, interview) => {
+    
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+
+    try {
+      const response = await axios.delete(`/api/appointments/${id}`, {
+        interview,
+      });
+      setState((prev) => ({
+        ...prev,
+        appointments,
+      }))
+      return response
+    }  catch (error) {
+      // Handle any errors that occur during the request
+      console.log(error);
+    }
+
+  };
+
+  // Selectors
+  const dailyAppointments = getAppointmentsForDay(state, day); // Get appointments for the selected day
   const interviewerArray = getInterviewersForDay(state, day); // Get interviewers available for the selected day
 
-  // Map the appointments to Appointment components
+  // creating appointment component array mapping jsx appointment component over appointment key array
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
     // Retrieve interview data for the current appointment (if it exists)
     return (
       <Appointment
-      key={appointment.id} // Unique key for each appointment component
-      id={appointment.id} // Appointment ID
-      time={appointment.time} // Appointment time
-      interview={interview} // Interview data (if it exists)
-      interviewers={interviewerArray} // Array of available interviewers for the day
-      bookInterview={bookInterview} // Function to book an interview
+        key={appointment.id} // Unique key for each appointment component
+        id={appointment.id} // Appointment ID
+        time={appointment.time} // Appointment time
+        interview={interview} // Interview data (if it exists)
+        interviewers={interviewerArray} // Array of available interviewers for the day
+        bookInterview={bookInterview} // Function to book an interview
+        cancelInterview={cancelInterview} // function to cancel an interview
       />
     );
   });
 
+  ///////////////////////////////////////////////////////////////////
+
+  // rendered jsx
   return (
     <main className="layout">
       <section className="sidebar">
@@ -91,11 +132,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={days}
-            value={day}
-            onChange={setDay}
-          />
+          <DayList days={days} value={day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -106,10 +143,7 @@ export default function Application(props) {
 
       <section className="schedule">
         {schedule}
-        <Appointment
-          key="last"
-          time="5pm"
-        />
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
