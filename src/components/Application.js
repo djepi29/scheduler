@@ -33,8 +33,9 @@ export default function Application(props) {
         appointments: { ...appointmentsResponse.data },
         interviewers: { ...interviewersResponse.data },
       }));
-    });
-  }, []);
+    })
+    .catch(([daysError, appointmentsError, interviewersError])=> console.log(daysError, appointmentsError, interviewersError));
+  }, [])
 
   // Function to set the selected day
   const setDay = (day) => {
@@ -63,9 +64,9 @@ export default function Application(props) {
       }))
       return response
     } catch (error) {
+      
       // Handle any errors that occur during the request
-      console.log(error);
-    }
+     throw error    }
 
   };
 
@@ -93,10 +94,23 @@ export default function Application(props) {
       return response
     }  catch (error) {
       // Handle any errors that occur during the request
-      console.log(error);
+      throw error ;
     }
 
   };
+
+  const editInterview = (id , interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+  }
+
+  
 
   // Selectors
   const dailyAppointments = getAppointmentsForDay(state, day); // Get appointments for the selected day
@@ -115,6 +129,7 @@ export default function Application(props) {
         interviewers={interviewerArray} // Array of available interviewers for the day
         bookInterview={bookInterview} // Function to book an interview
         cancelInterview={cancelInterview} // function to cancel an interview
+        editInterview={editInterview}
       />
     );
   });
