@@ -7,6 +7,7 @@ import Confirm from './Confirm'
 import "./styles.scss";
 import useVisualMode from 'hooks/useVisualMode';
 import Form from './Form';
+import Error from './Error';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -39,26 +40,21 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(SAVING); // Transition to SAVING mode before calling bookInterview
+    transition(SAVING, true); // Transition to SAVING mode before calling bookInterview
 
     bookInterview(id, interview)
       .then((response) => {
-        if (response.response.status === 500) {
-
-          console.log('this is the save error:', response)
-          transition(EMPTY);
-        }
         transition(SHOW);
       })
       .catch(error => {
         console.log('new error:',error)
-        transition(ERROR_SAVE)
+        transition(ERROR_SAVE, true)
       });
   }
 
   function deleteInterview() {
 
-    transition(DELETE)
+    transition(DELETE, true)
 
       cancelInterview(id, interview)
       .then(() => {
@@ -66,7 +62,7 @@ export default function Appointment(props) {
       })
       .catch(error => {
         console.log('delete rerror:', error)
-        transition(ERROR_DELETE)
+        transition(ERROR_DELETE, true)
       })
   }
 
@@ -118,13 +114,15 @@ export default function Appointment(props) {
          onSave={save}
        />
       )}
-      {mode === ERROR_SAVE && <Empty onAdd={handleAdd} />}
+      {mode === ERROR_SAVE && 
+        <Error
+        message = 'could not save the appointment'
+        onClose={handleCancel}
+         />}
       {mode === ERROR_DELETE && (
-        <Show
-        student={interview.student} 
-        interviewer={interview.interviewer.name}
-        onDelete={() => transition(CONFIRM)}
-        onEdit={handleEdit}
+        <Error
+        message = 'could not cancel the appointment'
+        onClose={handleCancel}
          />
       )}
     </article>
