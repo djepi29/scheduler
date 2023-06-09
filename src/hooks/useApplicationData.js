@@ -31,20 +31,38 @@ export default function useApplicationData () {
   }, [])
 
   // Function to set the selected day
+
   const setDay = (day) => {
     setState((prev) => ({ ...prev, day })); // day => day: day
   };
 
+
+console.log('day testing:', state.days)
+
+
   // Function to book an interview
   const bookInterview = async (id, interview) => {
+
+    // selecting appointment by id 
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
     };
+
+    // updating appointments state object with updated appointment by id  
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
+
+   const days =  state.days.map((day) => {
+      if (day.appointments.includes(id)) {
+        return {...day, spots: day.spots - 1 }
+      } else {
+       return day 
+      }
+    })
+ 
 
     // Make the PUT request to update the appointment data
     try {
@@ -54,6 +72,7 @@ export default function useApplicationData () {
       setState((prev) => ({
         ...prev,
         appointments,
+        days
       }))
       return response
     } catch (error) {
@@ -75,6 +94,13 @@ export default function useApplicationData () {
       [id]: appointment,
     };
 
+    const days =  state.days.map((day) => {
+      if (day.appointments.includes(id)) {
+        return {...day, spots: day.spots + 1 }
+      } else {
+       return day 
+      }
+    })
 
     try {
       const response = await axios.delete(`/api/appointments/${id}`, {
@@ -83,6 +109,7 @@ export default function useApplicationData () {
       setState((prev) => ({
         ...prev,
         appointments,
+        days
       }))
       return response
     }  catch (error) {
