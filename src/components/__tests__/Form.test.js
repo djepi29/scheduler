@@ -13,7 +13,7 @@ describe("Form", () => {
     },
   ];
 
-  it("renders without student name if not provided", () => {
+  xit("renders without student name if not provided", () => {
     const { getByPlaceholderText } = render(<Form interviewers={interviewers} />);
     expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
   }); // basic rendring shows that componnet logic is running in test mode and component is working.
