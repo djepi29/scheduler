@@ -23,16 +23,16 @@ export default function Application(props) {
 const { day, days} = state;
 
 
-  const editInterview = (id , interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-  }
+  // const editInterview = (id , interview) => {
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview },
+  //   };
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment,
+  //   };
+  // }
 
   
 
@@ -53,7 +53,7 @@ const { day, days} = state;
         interviewers={interviewerArray} // Array of available interviewers for the day
         bookInterview={bookInterview} // Function to book an interview
         cancelInterview={cancelInterview} // function to cancel an interview
-        editInterview={editInterview}
+        // editInterview={editInterview}
       />
     );
   });

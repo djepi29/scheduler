@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData () {
@@ -37,7 +37,7 @@ export default function useApplicationData () {
   };
 
 
-console.log('day testing:', state.days)
+// console.log('day testing:', state.days)
 
 
   // Function to book an interview
