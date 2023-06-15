@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, prettyDOM, ByLabelText, getByPlaceholderText, getByText, ByDisplayValue, getByAltText, ByTitle, ByRole, getAllByTestId  } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, prettyDOM, ByLabelText, getByPlaceholderText, getByText, ByDisplayValue, getByAltText, queryByText, ByTitle, ByRole, getAllByTestId  } from "@testing-library/react";
 import Application from "components/Application";
 
 afterEach(cleanup);
@@ -26,7 +26,7 @@ describe('Application', () => {
   }); 
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container } = render(<Application />);
+    const { container, debug } = render(<Application />);
   
     await waitForElement(() => getByText(container, "Archie Cohen"));
     // console.log(prettyDOM(container));
@@ -35,7 +35,7 @@ describe('Application', () => {
 // console.log(prettyDOM(appointments));
 
 const appointment = getAllByTestId(container, "appointment")[0];
-console.log(prettyDOM(appointment))
+// console.log(prettyDOM(appointment))
 
 fireEvent.click(getByAltText(appointment, "Add"));
 
@@ -45,8 +45,22 @@ fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
 fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
 fireEvent.click(getByText(appointment, "Save"));
+// console.log(prettyDOM(appointment));
 
-console.log(prettyDOM(appointment));
+// verifies the current state of our render
+//  debug()
+
+ expect(getByText(appointment,"Saving")).toBeInTheDocument()
+
+ await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+ const day = getAllByTestId(container, "day").find(day =>
+  queryByText(day, "Monday")
+);
+
+console.log(prettyDOM(day));
+
+expect(getByText(day,"no spots remaining")).toBeInTheDocument()
 
   });
 
