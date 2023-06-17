@@ -36,18 +36,18 @@ Interview Scheduler is a single-page application (SPA) that allows users to book
 
 ## Getting Started
 
-1. [Create] a new repository using this repository as a template.
+1. Create a new repository using this repository as a template.
 2. Clone your repository onto your local device.
 3. Install dependencies using the `npm install` command.
-3. Start the web app using the `npm start` command. The app will be served at <http://localhost:8000/>.
+3. Start the webpack using the `npm start` command. The app will be served at <http://localhost:8000/>.
 
 ## Running Jest Test Framework
 the app was tested using Jest Test Framework:
-'npm test -- --coverage --watchAll=false ' for report.
+`npm test -- --coverage --watchAll=false` for report.
 
 ## Running Storybook Visual Testbed
 components were created using storybook:
-"npm run storybook" for details
+`npm run storybook` for details
 
 ## Cypress
 E2E testing covered with [cypress](https://docs.cypress.io/guides/overview/why-cypress)
