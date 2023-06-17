@@ -10,31 +10,12 @@ import {
 } from "../helpers/selectors";
 
 export default function Application(props) {
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
-
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
-  
   // Shorthand state reference
-const { day, days} = state;
+  const { day, days } = state;
 
-
-  // const editInterview = (id , interview) => {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview },
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment,
-  //   };
-  // }
-
-  
 
   // Selectors
   const dailyAppointments = getAppointmentsForDay(state, day); // Get appointments for the selected day
@@ -60,7 +41,6 @@ const { day, days} = state;
 
   ///////////////////////////////////////////////////////////////////
 
-  // rendered jsx
   return (
     <main className="layout">
       <section className="sidebar">

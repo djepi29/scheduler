@@ -1,17 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useApplicationData () {
-
-   // State object
-   const [state, setState] = useState({
+export default function useApplicationData() {
+  // State object
+  const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
   });
-  // // Shorthand state reference
-  // const { day, days, appointments, interviewers } = state;
 
   // Fetching data
   useEffect(() => {
@@ -19,16 +16,19 @@ export default function useApplicationData () {
       axios.get("/api/days"),
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
-    ]).then(([daysResponse, appointmentsResponse, interviewersResponse]) => {
-      setState((prev) => ({
-        ...prev,
-        days: [...daysResponse.data],
-        appointments: { ...appointmentsResponse.data },
-        interviewers: { ...interviewersResponse.data },
-      }));
-    })
-    .catch(([daysError, appointmentsError, interviewersError])=> console.log(daysError, appointmentsError, interviewersError));
-  }, [])
+    ])
+      .then(([daysResponse, appointmentsResponse, interviewersResponse]) => {
+        setState((prev) => ({
+          ...prev,
+          days: [...daysResponse.data],
+          appointments: { ...appointmentsResponse.data },
+          interviewers: { ...interviewersResponse.data },
+        }));
+      })
+      .catch(([daysError, appointmentsError, interviewersError]) =>
+        console.log(daysError, appointmentsError, interviewersError)
+      );
+  }, []);
 
   // Function to set the selected day
 
@@ -36,33 +36,27 @@ export default function useApplicationData () {
     setState((prev) => ({ ...prev, day })); // day => day: day
   };
 
-
-// console.log('day testing:', state.days)
-
-
   // Function to book an interview
   const bookInterview = async (id, interview) => {
-
-    // selecting appointment by id 
+    // selecting appointment by id
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
     };
 
-    // updating appointments state object with updated appointment by id  
+    // updating appointments state object with updated appointment by id
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
 
-   const days =  state.days.map((day) => {
+    const days = state.days.map((day) => {
       if (day.appointments.includes(id)) {
-        return {...day, spots: day.spots - 1 }
+        return { ...day, spots: day.spots - 1 };
       } else {
-       return day 
+        return day;
       }
-    })
- 
+    });
 
     // Make the PUT request to update the appointment data
     try {
@@ -72,18 +66,16 @@ export default function useApplicationData () {
       setState((prev) => ({
         ...prev,
         appointments,
-        days
-      }))
-      return response
+        days,
+      }));
+      return response;
     } catch (error) {
       
-      // Handle any errors that occur during the request
-     throw error    }
-
+      throw error;
+    }
   };
 
   const cancelInterview = async (id, interview) => {
-    
     const appointment = {
       ...state.appointments[id],
       interview: null,
@@ -94,13 +86,13 @@ export default function useApplicationData () {
       [id]: appointment,
     };
 
-    const days =  state.days.map((day) => {
+    const days = state.days.map((day) => {
       if (day.appointments.includes(id)) {
-        return {...day, spots: day.spots + 1 }
+        return { ...day, spots: day.spots + 1 };
       } else {
-       return day 
+        return day;
       }
-    })
+    });
 
     try {
       const response = await axios.delete(`/api/appointments/${id}`, {
@@ -109,16 +101,14 @@ export default function useApplicationData () {
       setState((prev) => ({
         ...prev,
         appointments,
-        days
-      }))
-      return response
-    }  catch (error) {
-      // Handle any errors that occur during the request
-      throw error ;
+        days,
+      }));
+      return response;
+    } catch (error) {
+     
+      throw error;
     }
-
   };
 
-
-  return {state, setDay, bookInterview, cancelInterview}
+  return { state, setDay, bookInterview, cancelInterview };
 }

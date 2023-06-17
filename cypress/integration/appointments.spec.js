@@ -48,7 +48,7 @@ describe("Appointments", () => {
 
     // Clicks the confirm button
     cy.contains("Confirm").click();
-
+    // confirms view
     cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist");
   });
 });

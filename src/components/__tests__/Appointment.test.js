@@ -4,14 +4,9 @@ import { render, cleanup } from "@testing-library/react";
 
 import Appointment from "components/Appointment";
 
-
-
 afterEach(cleanup);
 
 describe("Appointment", () => {
-  xit("renders without crashing", () => {
-    render(<Appointment />);
-  });
 
   it("does something it is supposed to do", () => {
     // ...
@@ -20,14 +15,4 @@ describe("Appointment", () => {
   test("does something else it is supposed to do", () => {
     // ...
   });
-
-  //////////////// skipping test 
-  xit("does something it is supposed to do", () => {
-    // ...
-  });
-  
-  // or if using test
-  test.skip("does something it is supposed to do", () => {
-    // ...
-  });
-});
+}); // test setup format

@@ -1,11 +1,15 @@
-import React from 'react';
-import InterviewerListItem from './InterviewerListItem';
-import PropTypes from 'prop-types';
-import 'components/InterviewerList.scss';
+import React from "react";
+import InterviewerListItem from "./InterviewerListItem";
+import PropTypes from "prop-types";
+import "components/InterviewerList.scss";
 
-
-
- function InterviewerList({ interviewers, setInterviewer, interviewer ,value ,onChange }) {
+function InterviewerList({
+  interviewers,
+  setInterviewer,
+  interviewer,
+  value,
+  onChange,
+}) {
   const interviewerItems = interviewers.map((interviewerItem) => (
     <InterviewerListItem
       key={interviewerItem.id}
@@ -25,7 +29,7 @@ import 'components/InterviewerList.scss';
 }
 
 InterviewerList.propTypes = {
-  interviewers: PropTypes.array.isRequired
+  interviewers: PropTypes.array.isRequired,
 };
 
-export default InterviewerList
+export default InterviewerList;

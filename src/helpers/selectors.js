@@ -15,7 +15,7 @@ export function getAppointmentsForDay(state, day) {
   );
 
   return appointments;
-};
+}
 
 //////
 //////////
@@ -33,7 +33,7 @@ export function getInterview(state, interview) {
     ...interview,
     interviewer,
   };
-};
+}
 
 //////
 //////////
@@ -52,4 +52,4 @@ export function getInterviewersForDay(state, day) {
   );
 
   return interviewers;
-};
+}

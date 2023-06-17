@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Button from 'components/Button';
-import InterviewerList from 'components/InterviewerList';
+import React, { useState } from "react";
+import Button from "components/Button";
+import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
-  const [student, setStudent] = useState(props.student || '');
+  const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState(null);
 
@@ -12,7 +12,7 @@ export default function Form(props) {
   };
 
   const reset = () => {
-    setStudent('');
+    setStudent("");
     setInterviewer(null);
   };
 
@@ -22,25 +22,24 @@ export default function Form(props) {
   };
 
   const validate = () => {
-    if (student.trim() === '') {
-      setError('Student name cannot be blank');
+    if (student.trim() === "") {
+      setError("Student name cannot be blank");
       return;
     }
 
     if (interviewer === null) {
-      setError('Please select an interviewer');
+      setError("Please select an interviewer");
       return;
     }
 
     setError(null);
     props.onSave(student, interviewer);
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     validate();
   };
-
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -56,7 +55,9 @@ export default function Form(props) {
             data-testid="student-name-input"
           />
         </form>
-        <section className="appointment__validation">{error && <span>{error}</span>}</section>
+        <section className="appointment__validation">
+          {error && <span>{error}</span>}
+        </section>
         <InterviewerList
           interviewers={props.interviewers}
           value={interviewer}
