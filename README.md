@@ -2,7 +2,7 @@
 
 Interview Scheduler is a single-page application (SPA) that allows users to book technical interviews between students and mentors. The front end of this project is built with React and makes requests to an API to fetch and store appointment data from a database.
 
-!["Scheduler"](LightBnB_WebApp/ERD/ERD.png)
+!["Scheduler"](https://github.com/djepi29/scheduler/blob/master/docs/onLoadView.png#:~:text=onLoadView.-,png,-public)
 
 **_BEWARE:_ This project is for learning purposes. It is _not_ intended for use in production-grade software.**
 
@@ -50,7 +50,7 @@ components were created using storybook:
 "npm run storybook" for details
 
 ## Cypress
-E2E testing covered with 
+E2E testing covered with [cypress](https://docs.cypress.io/guides/overview/why-cypress)
 
 ## database 
 
