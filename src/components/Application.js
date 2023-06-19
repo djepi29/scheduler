@@ -10,7 +10,7 @@ import {
 } from "../helpers/selectors";
 
 export default function Application(props) {
-  const { state, setDay, bookInterview, cancelInterview } =
+  const { state, setDay, bookInterview, cancelInterview, editInterview } =
     useApplicationData();
 
   // Shorthand state reference
@@ -34,7 +34,7 @@ export default function Application(props) {
         interviewers={interviewerArray} // Array of available interviewers for the day
         bookInterview={bookInterview} // Function to book an interview
         cancelInterview={cancelInterview} // function to cancel an interview
-        // editInterview={editInterview}
+        editInterview={editInterview}
       />
     );
   });

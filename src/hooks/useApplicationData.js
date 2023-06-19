@@ -110,5 +110,35 @@ export default function useApplicationData() {
     }
   };
 
-  return { state, setDay, bookInterview, cancelInterview };
+  // function to edit an interview 
+  const editInterview = async (id ,interview) => {
+
+    // selecting appointment by id
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+
+    // updating appointments state object with updated appointment by id
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    try {
+      const response = await axios.put(`/api/appointments/${id}`, {
+        interview,
+      });
+      setState((prev) => ({
+        ...prev,
+        appointments,
+      }));
+      return response;
+    } catch (error) {
+      
+      throw error;
+    }
+  }
+
+  return { state, setDay, bookInterview, cancelInterview, editInterview };
 }
