@@ -39,7 +39,7 @@ export default function Appointment(props) {
       interviewer,
     };
 
-    transition(SAVING, true); // Transition to SAVING mode before calling bookInterview
+    transition(SAVING); // Transition to SAVING mode before calling bookInterview
 
     bookInterview(id, interview)
       .then((response) => {
@@ -56,7 +56,7 @@ export default function Appointment(props) {
       interviewer,
     };
 
-    transition(SAVING, true); // Transition to SAVING mode before calling bookInterview
+    transition(SAVING); // Transition to SAVING mode before calling bookInterview
 
     editInterview(id, interview)
       .then((response) => {
