@@ -55,3 +55,48 @@ E2E testing covered with [cypress](https://docs.cypress.io/guides/overview/why-c
 ## database 
 
 4. a database is needed to run the app. you can visit [Scheduler-api](https://github.com/lighthouse-labs/scheduler-api) to help set it up  or use the samples provided in the docs folder to create your own.
+
+
+## dependencies 
+- "axios": "^1.4.0",
+
+- "classnames": "^2.2.6",
+
+- "normalize.css": "^8.0.1",
+
+- "react": "^16.9.0",
+
+- "react-dom": "^16.9.0",
+
+- "react-scripts": "3.4.4"
+
+## dev.dependencies
+-"@babel/core": "^7.4.3",
+
+-"@storybook/addon-actions": "^5.0.10",
+
+-"@storybook/addon-backgrounds": "^5.0.10",
+
+-"@storybook/addon-links": "^5.0.10",
+
+-"@storybook/addons": "^5.0.10",
+
+-"@storybook/react": "^5.0.10",
+
+-"@testing-library/jest-dom": "^4.0.0",
+
+-"@testing-library/react": "^8.0.7",
+
+-"@testing-library/react-hooks": "^8.0.1",
+
+-"babel-loader": "8.1.0",
+
+-"cypress": "^9.7.0",
+
+-"prop-types": "^15.8.1",
+
+-"react-test-renderer": "^16.9.0",
+
+-"resolve-url-loader": "^3.1.2",
+
+-"sass": "^1.62.1" 
